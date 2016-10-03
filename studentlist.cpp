@@ -12,6 +12,8 @@ struct Student{
 };
 
 Student* getStudentPointer();
+void printStudentList(vector<Student*> studentList);
+void deleteStudent(vector<Student*> &studentList);
 
 int main(){
   vector<Student*> studentList;
@@ -28,7 +30,12 @@ int main(){
     }
     else if(strcmp(input, "ADD") == 0){
       studentList.push_back(getStudentPointer());
-      cout << studentList[0]->lname << ", " << studentList[0]->gpa << endl;
+    }
+    else if(strcmp(input, "PRINT") == 0){
+      printStudentList(studentList);
+    }
+    else if(strcmp(input, "DELETE") == 0){
+      deleteStudent(studentList);
     }
   }
 
@@ -38,7 +45,7 @@ int main(){
 }
 
 Student* getStudentPointer(){//Asks user for student info; creates student with that info and returns its pointer.
-  Student* student = new Student();
+  Student* student = new Student(); //New student and pointer at once.
   student->fname = new char[20];
   student->lname = new char[20];
   cout << "Enter student\'s first name: ";
@@ -57,4 +64,32 @@ Student* getStudentPointer(){//Asks user for student info; creates student with 
   //student.gpa = stof(gpa);
 
   return student;
+}
+
+void printStudentList(vector<Student*> studentList){//Prints out the student list.
+  for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end(); it++){
+    cout << (*it)->fname << " " << (*it)->lname << ", ID: " << (*it)->id << ", GPA: " << (*it)->gpa << "." << endl;
+  }
+  cout << endl;
+  return;
+}
+
+void deleteStudent(vector<Student*> &studentList){//removes student with given ID from the list (prompts user for id).
+  int input;
+  cout << "Enter ID of student to be removed: ";
+  cin >> input;
+  cout << endl;
+  bool done = false;
+  for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end() && !done; it++){
+    if((*it)->id == input){
+      studentList.erase(it);
+      done = true;
+    }
+  }
+  if(done){
+    cout << "Removed student from list successfully." << endl;
+  }
+  else{
+    cout << "No student found with the given ID." << endl;
+  }
 }
