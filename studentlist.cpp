@@ -10,6 +10,10 @@ struct Student{
   char *lname;
   int id;
   float gpa;
+  ~Student(){
+    delete fname;
+    delete lname;
+  }
 };
 
 Student* getStudentPointer();
@@ -96,6 +100,7 @@ void deleteStudent(vector<Student*> &studentList){//removes student with given I
   bool done = false;
   for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end() && !done; it++){
     if((*it)->id == input){
+      delete (*it);
       studentList.erase(it);
       done = true;
     }
