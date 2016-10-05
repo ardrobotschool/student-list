@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
+#include <ctype.h>
 
 using namespace std;
 
@@ -25,17 +26,26 @@ int main(){
     cout << "Type a command: ";
     cin >> input;
     cout << endl;
+    //Convert input to lower case
+    int i = 0;
+    while(input[i]){
+      input[i] = tolower(input[i]);
+      i++;
+    }
     if(strcmp(input, "q") == 0){
       break;
     }
-    else if(strcmp(input, "ADD") == 0){
+    else if(strcmp(input, "add") == 0){
       studentList.push_back(getStudentPointer());
     }
-    else if(strcmp(input, "PRINT") == 0){
+    else if(strcmp(input, "print") == 0){
       printStudentList(studentList);
     }
-    else if(strcmp(input, "DELETE") == 0){
+    else if(strcmp(input, "delete") == 0){
       deleteStudent(studentList);
+    }
+    else{
+      cout << "Command not found." << endl;
     }
   }
 
@@ -68,7 +78,11 @@ Student* getStudentPointer(){//Asks user for student info; creates student with 
 
 void printStudentList(vector<Student*> studentList){//Prints out the student list.
   for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end(); it++){
-    cout << (*it)->fname << " " << (*it)->lname << ", ID: " << (*it)->id << ", GPA: " << (*it)->gpa << "." << endl;
+    cout << (*it)->fname << " " << (*it)->lname << ", ID: " << (*it)->id << ", GPA: ";
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.setf(ios::showpoint);
+    cout.precision(2);
+    cout << (*it)->gpa << "." << endl;
   }
   cout << endl;
   return;
@@ -92,4 +106,5 @@ void deleteStudent(vector<Student*> &studentList){//removes student with given I
   else{
     cout << "No student found with the given ID." << endl;
   }
+  cout << endl;
 }
