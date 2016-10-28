@@ -22,7 +22,7 @@ void deleteStudent(vector<Student*> &studentList);
 
 int main(){
   vector<Student*> studentList;
-  char *input = new char;
+  char input[25];
   cout << "Enter \"ADD\" to add a new student entry, \"PRINT\" to print out the current list of students, or \"DELETE\" to delete a student entry." << endl;
   cout << "Enter \"q\" at any time to quit the program." << endl;
 
@@ -36,8 +36,13 @@ int main(){
       input[i] = tolower(input[i]);
       i++;
     }
-    if(strcmp(input, "q") == 0){
-      break;
+    if(strcmp(input, "q") == 0){//quit
+      //Wipe everything the contents of the vector point to.
+      for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end(); it++){
+	delete (*it);
+      }
+      //The vector itself should be removed automatically.
+      return 0;
     }
     else if(strcmp(input, "add") == 0){
       studentList.push_back(getStudentPointer());
