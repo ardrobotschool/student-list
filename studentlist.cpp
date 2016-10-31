@@ -5,24 +5,25 @@
 
 using namespace std;
 
-struct Student{
+struct Student{//Datum in studentList
   char *fname;
   char *lname;
   int id;
   float gpa;
-  ~Student(){
+  ~Student(){//These were made using the new operator:
     delete fname;
     delete lname;
   }
 };
 
+//Function prototypes
 Student* getStudentPointer();
 void printStudentList(vector<Student*> studentList);
 void deleteStudent(vector<Student*> &studentList);
 
 int main(){
   vector<Student*> studentList;
-  char input[25];
+  char input[25]; //Input of command
   cout << "Enter \"ADD\" to add a new student entry, \"PRINT\" to print out the current list of students, or \"DELETE\" to delete a student entry." << endl;
   cout << "Enter \"q\" at any time to quit the program." << endl;
 
@@ -103,6 +104,7 @@ void deleteStudent(vector<Student*> &studentList){//removes student with given I
   cin >> input;
   cout << endl;
   bool done = false;
+  //Search for student with given id:
   for(vector<Student*>::iterator it = studentList.begin(); it != studentList.end() && !done; it++){
     if((*it)->id == input){
       delete (*it);
