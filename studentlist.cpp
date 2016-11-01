@@ -11,8 +11,8 @@ struct Student{//Datum in studentList
   int id;
   float gpa;
   ~Student(){//These were made using the new operator:
-    delete fname;
-    delete lname;
+    delete[] fname;
+    delete[] lname;
   }
 };
 
