@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/*
+ * This program allows the user to work with a list of students; the user can add and delete an individual student.
+ * Completed by Artur Drobot October 2016.
+ */
+
 struct Student{//Datum in studentList
   char *fname;
   char *lname;
